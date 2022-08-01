@@ -1,6 +1,6 @@
 <template>
   <v-app class="app">
-    <div class="header">
+    <div class="header mb-6">
       <Header />
     </div>
     <v-main>

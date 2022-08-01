@@ -1,22 +1,21 @@
 <template>
     <div class="header">
-        <v-container>
-            <div class="header__content">
-                <div class="header__content__logo">
-                    <img class="header__content__logo__image" src="../../assets/1.png" alt="logo">
-                    <span class="ml-3">{{ title }}</span>
-                </div>
-                <div class="header__content__search">
-                    <v-text-field solo label="search" dense hide-details></v-text-field>
-                </div>
-                <div class="header__content__actions">
-                    <Button size="lg" color="#00000" text="Sign in" icon="fa-solid fa-right-to-bracket"
-                        class="mr-3"></Button>
-                    <Button size="lg" color="#00000" text="Register" icon="fa-solid fa-right-to-bracket"></Button>
-                </div>
+        <div class="header__user">
+            <div class="header__user__avatar">
+                <fa class="header__user__avatar__icon" icon="fa-solid fa-user" />
             </div>
-
-        </v-container>
+            <div class="header__user__info ml-3">
+                <span class="header__user__info__name">{{ data.name }}</span>
+                <span class="header__user__info__desc">{{ data.description }}</span>
+            </div>
+        </div>
+        <div class="header__search">
+            <v-text-field solo label="search" dense hide-details></v-text-field>
+        </div>
+        <div class="header__actions">
+            <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in" />
+            <Button icon="fa-solid fa-user-plus" text="Register" />
+        </div>
     </div>
 </template>
 
@@ -29,7 +28,10 @@ export default {
     setup() {
 
         return {
-            title: 'Logo',
+            data: {
+                name: 'name',
+                description: 'lorem lorem lorem'
+            }
 
         }
     }
@@ -39,37 +41,76 @@ export default {
 <style lang="scss" scoped>
 .header {
     width: 100%;
-    height: 80px;
+    height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 1px 0px 10px #e0daca;
+    background-color: #5F7470;
+    color: #FDF8EA;
+    padding: 0 30px;
 
-    &__content {
-        height: 60px;
-        width: 100%;
+    &__search {
+        width: 40%;
+        height: 80%;
+    }
+
+    &__user {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: center;
 
-        &__search {
-            width: 40%;
-            height: 80%;
-        }
-
-        &__logo {
-            font-size: 32px;
-            font-weight: 700;
+        &__avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #FDF8EA;
 
-            &__image {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+            &__icon {
+                color: #29335C;
+                font-size: 18px;
+            }
+        }
+
+        &__info {
+            color: #FDF8EA;
+            display: flex;
+            flex-direction: column;
+
+            &__name {
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            &__desc {
+                font-size: 12px;
+                font-weight: 400;
             }
         }
     }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+
+        &__item {
+            border: 1px solid grey;
+            padding: 5px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+
+            .icon {
+                font-size: 14px;
+            }
+
+            a {
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+
 }
 </style>
