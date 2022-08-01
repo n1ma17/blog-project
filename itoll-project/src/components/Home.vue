@@ -1,11 +1,26 @@
 <template>
-  <h1>home</h1>
+  <div>
+   
+  </div>
 </template>
 
-<script >
- name: 'Home'
+<script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+export default {
+  setup() {
 
+    const store = useStore()
+    const test = computed(() => store.getters.getTest)
+    console.log(test.value);
+
+
+    return {
+      test
+    }
+  }
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

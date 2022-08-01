@@ -1,11 +1,16 @@
-import { createApp } from 'vue'
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
-import router from './router'
-import store from './store'
+import { createApp } from "vue";
+import App from "./layout/App.vue";
+import router from "./router";
+import store from "./store";
+import vuetify from "./plugins/vuetify";
+import { loadFonts } from "./plugins/webfontloader";
 
-import './style.css'
-import App from './App.vue'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-// createApp(App).use(VueAxios, axios)
-createApp(App).use(router).use(store).mount('#app')
+library.add(fas);
+
+loadFonts();
+
+createApp(App).use(router).use(store).use(vuetify).component('fa', FontAwesomeIcon).mount("#app");
