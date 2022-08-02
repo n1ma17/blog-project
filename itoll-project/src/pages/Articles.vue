@@ -14,8 +14,9 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import Card from './shared/Card/index.vue'
+import Card from '/src/components/shared/Card/index.vue'
 export default {
+  name: 'ArticlesPage',
   components: {
     Card
   },

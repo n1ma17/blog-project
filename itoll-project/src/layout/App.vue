@@ -1,11 +1,13 @@
 <template>
   <v-app class="app">
-    <div class="header mb-6">
+    <div class="app__header ">
       <Header />
     </div>
     <v-main>
       <v-container>
-        <router-view />
+        <transition name="fade">
+          <router-view />
+        </transition>
       </v-container>
     </v-main>
   </v-app>
@@ -22,7 +24,15 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.app{
+.app {
   background-color: #FDF8EA;
+  position: relative;
+  &__header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    margin-bottom: 50px;
+    background-color: #5f7470;
+  }
 }
 </style>

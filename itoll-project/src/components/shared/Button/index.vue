@@ -29,13 +29,14 @@ export default {
 <style lang="scss" scoped>
 .custom-button {
     border: 1px solid #FDF8EA;
-    width: 100px;
-    height: 35px;
+    min-width: 100px;
+    min-height: 35px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    padding: 10px;
 
     .icon {
         font-size: 14px;
@@ -48,6 +49,8 @@ export default {
     }
 
     a {
+        text-align: center;
+        width: 100%;
         font-size: 12px;
         font-weight: 600;
         transition: all 0.3s;

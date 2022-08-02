@@ -6,17 +6,22 @@
             </div>
             <div class="header__user__info ml-3">
                 <span class="header__user__info__name">{{ data.name }}</span>
-                <span class="header__user__info__desc">{{ data.description }}</span>
+                <span class="header__user__info__desc">{{ data.email }}</span>
             </div>
         </div>
         <div class="header__menu">
-            <a>Articles</a>
-            <a>Create Article</a>
+            <router-link to="/">
+                Articles
+            </router-link>
+            <router-link to="/create-article">
+                Create Article
+            </router-link>
         </div>
         <div class="header__actions">
-            <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in" />
+            <router-link to="/Auth">
+                <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in / Register" />
+            </router-link>
             <Button class="mr-3" icon="fa-solid fa-right-from-bracket" text="Log out" />
-            <Button icon="fa-solid fa-user-plus" text="Register" />
         </div>
     </div>
 </template>
@@ -32,7 +37,7 @@ export default {
         return {
             data: {
                 name: 'name',
-                description: 'lorem lorem lorem'
+                email: 'test@test.com'
             }
 
         }
@@ -41,15 +46,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+    text-decoration: none;
+}
+
 .header {
     width: 100%;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #5F7470;
     color: #FDF8EA;
-    padding: 0 30px;
+    box-shadow: 0px 0px 8px #5f7470;
+    padding: 0 20px;
 
     &__menu {
         width: 50%;
@@ -67,6 +76,7 @@ export default {
             overflow: hidden;
             padding: 5px 0;
             margin: 0 20px;
+
 
             &:before {
                 content: '';
@@ -133,6 +143,10 @@ export default {
         align-items: center;
         justify-content: flex-end;
         width: 25%;
+
+        a {
+            color: #FDF8EA;
+        }
     }
 
 }
