@@ -29,12 +29,13 @@ export default {
 <style lang="scss" scoped>
 .custom-button {
     border: 1px solid #FDF8EA;
-    width: 70px;
+    width: 100px;
     height: 35px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    overflow: hidden;
 
     .icon {
         font-size: 14px;

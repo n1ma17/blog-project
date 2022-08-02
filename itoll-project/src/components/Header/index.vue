@@ -9,11 +9,13 @@
                 <span class="header__user__info__desc">{{ data.description }}</span>
             </div>
         </div>
-        <div class="header__search">
-            <v-text-field solo label="search" dense hide-details></v-text-field>
+        <div class="header__menu">
+            <a>Articles</a>
+            <a>Create Article</a>
         </div>
         <div class="header__actions">
             <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in" />
+            <Button class="mr-3" icon="fa-solid fa-right-from-bracket" text="Log out" />
             <Button icon="fa-solid fa-user-plus" text="Register" />
         </div>
     </div>
@@ -49,15 +51,50 @@ export default {
     color: #FDF8EA;
     padding: 0 30px;
 
-    &__search {
-        width: 40%;
+    &__menu {
+        width: 50%;
         height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        a {
+            color: #FDF8EA;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: 5px 0;
+            margin: 0 20px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 100%;
+                width: 100%;
+                height: 3px;
+                background: #FDF8EA;
+                transition: all 0.3s;
+                transition-delay: 0.15s;
+                border-radius: 10px;
+            }
+
+            &:hover {
+                &:before {
+                    right: 0;
+                }
+            }
+        }
+
     }
 
     &__user {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        width: 25%;
 
         &__avatar {
             width: 40px;
@@ -94,22 +131,8 @@ export default {
     &__actions {
         display: flex;
         align-items: center;
-
-        &__item {
-            border: 1px solid grey;
-            padding: 5px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-
-            .icon {
-                font-size: 14px;
-            }
-
-            a {
-                font-size: 14px;
-                font-weight: 600;
-            }
-        }
+        justify-content: flex-end;
+        width: 25%;
     }
 
 }

@@ -1,34 +1,57 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
-    <h3>{{ test }}</h3>
-  </div>
+  <v-row>
+    <v-col cols="12" md="12">
+      <div class="header-section">
+        <span>Articles</span>
+      </div>
+    </v-col>
+    <v-col cols="12" md="6" v-for="item in articles">
+      <Card :data='item' />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import Card from './shared/Card/index.vue'
 export default {
+  components: {
+    Card
+  },
   setup() {
 
     const store = useStore()
-    const test = computed(() => store.getters.getTest)
-    console.log(test.value);
+    const articles = computed(() => store.getters.getArticles)
 
-
+    // const getData = () => {
+    //   $http.$get('/articles').then((res) => console.log({ res }))
+    // }
+    // onMounted(() => {
+    //   getData()
+    // })
     return {
-      test
+      articles
     }
   }
+
 }
 </script>
 
 <style lang="scss" scoped>
-.home{
+.header-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  color: #5F7470;
+  padding: 20px 0;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5F7470;
+
+  span {
+    font-size: 40px;
+    font-weight: 700;
+    color: #5F7470;
+
+  }
 }
 </style>
