@@ -12,6 +12,10 @@
             </div>
         </div>
         <div class="register__btn">
+            <div @click="accountHandler" class="register__btn__account-status">
+                <span>Already have login and password? </span>
+                <a class="ml-2">Sign in</a>
+            </div>
             <Button type="submit" icon="fa-solid fa-check-double" text="register" />
         </div>
     </form>
@@ -30,7 +34,7 @@ export default {
         TextField,
         Button
     },
-    setup() {
+    setup(_, { emit }) {
         const store = useStore()
         const registerItem = reactive({
             username: '',
@@ -48,11 +52,15 @@ export default {
             }
             if (registerItem.password === registerItem.repassword) {
                 store.dispatch(`auth/${APP_REGISTER_ACTION}`, params)
-            }else alert('incorrect password')
+            } else alert('incorrect password')
+        }
+        const accountHandler = () => {
+            emit('haveAccount', true)
         }
         return {
             handleRegister,
-            registerItem
+            registerItem,
+            accountHandler
         }
     }
 }
@@ -89,9 +97,22 @@ export default {
     &__btn {
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
         padding: 30px 0 0 0;
         border-top: 1px solid #5F7470;
+
+        &__account-status {
+            font-size: 10px;
+            color: #b7b7b7;
+
+            a {
+                font-size: 12px;
+                color: #5F7470;
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
     }
 }
 </style>

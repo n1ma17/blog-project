@@ -8,7 +8,11 @@
             </div>
         </div>
         <div class="login__btn">
-            <Button type="submit" icon="fa-solid fa-check-double" text="log in" />
+            <div @click="accountHandler" class="login__btn__account-status">
+                <span>Don't have an account yet? </span>
+                <a class="ml-2">Register now</a>
+            </div>
+            <Button type="submit" icon="fa-solid fa-check-double" text="Sign in" />
         </div>
     </form>
 </template>
@@ -25,7 +29,7 @@ export default {
         TextField,
         Button
     },
-    setup() {
+    setup(_, { emit }) {
         const store = useStore()
         const item = reactive({
             email: '',
@@ -37,9 +41,13 @@ export default {
             }
             store.dispatch(`auth/${APP_LOGIN_ACTION}`, params)
         }
+        const accountHandler = () => {
+            emit('haveAccount', false)
+        }
         return {
             item,
-            handleLogin
+            handleLogin,
+            accountHandler
         }
     }
 }
@@ -76,9 +84,22 @@ export default {
     &__btn {
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
         padding: 30px 0 0 0;
         border-top: 1px solid #5F7470;
+
+        &__account-status {
+            font-size: 10px;
+            color: #b7b7b7;
+
+            a {
+                font-size: 12px;
+                color: #5F7470;
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
     }
 }
 </style>

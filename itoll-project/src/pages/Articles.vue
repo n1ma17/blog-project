@@ -3,10 +3,11 @@
     <v-col cols="12" md="12">
       <div class="header-section">
         <span>Articles</span>
+        <v-progress-circular v-if="loading" class="ml-6" :size="40" :width="4" color="success" indeterminate></v-progress-circular>
       </div>
     </v-col>
     <v-col cols="12" md="6" v-for="item in articles">
-      <Card :data='item' />
+      <ArticleCard :data='item' />
     </v-col>
   </v-row>
 </template>
@@ -14,19 +15,21 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import Card from '/src/components/shared/Card/index.vue'
+import { APP_GET_ARTICLES } from '../store/actionTypes/Auth'
+import ArticleCard from '/src/components/shared/ArticleCard.vue'
 export default {
   name: 'ArticlesPage',
   components: {
-    Card
+    ArticleCard
   },
   setup() {
-
     const store = useStore()
-    const articles = computed(() => store.getters.getArticles)
-
+    const articles = computed(() => store.getters["articles/getArticles"])
+    store.dispatch(`articles/${APP_GET_ARTICLES}`)
+    const loading = store.getters["articles/getLoading"]
     return {
-      articles
+      articles,
+      loading
     }
   }
 

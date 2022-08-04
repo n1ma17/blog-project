@@ -1,46 +1,63 @@
 <template>
-    <div class="create-article">
+    <form @submit.prevent="createArticle" class="create-article">
         <div class="create-article__content">
             <span class="create-article__content__title">Create New Article</span>
             <div class="create-article__content__form">
                 <div class="create-article__content__form__input">
-                    <TextField lable="Title" type="text" class="mb-4" />
+                    <v-text-field v-model="formData.title" label="Title" class="mb-4"></v-text-field>
                 </div>
                 <div class="create-article__content__form__input">
-                    <SelectInput :options="tagList" label="Tag" type="select" class="mb-4" />
+                    <v-select v-model="formData.tagList" multiple chips :items="tagsList" label="Tags" class="mb-4">
+                    </v-select>
                 </div>
                 <div class="create-article__content__form__input">
-                    <TextareaInput :cols='1' :rows="4" label="Description" class="mb-4" />
+                    <v-textarea v-model="formData.description" name="create-article-desc" label="Description"
+                        class="mb-4"></v-textarea>
                 </div>
                 <div class="create-article__content__form__input">
-                    <TextareaInput :cols='1' :rows="4" label="Body" type="text" class="mb-4" />
+                    <v-textarea v-model="formData.body" name="create-article-body" label="Body" class="mb-4">
+                    </v-textarea>
                 </div>
 
             </div>
         </div>
         <div class="create-article__btn">
-            <Button icon="fa-solid fa-feather" text="create article" />
+            <Button type="submit" icon="fa-solid fa-feather" text="create article" />
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
-import TextField from '/src/components/shared/TextField/index.vue'
-import SelectInput from '/src/components/shared/SelectInput/index.vue'
-import TextareaInput from '/src/components/shared/TextareaInput/index.vue'
 import Button from '/src/components/shared/Button/index.vue'
+import { useStore } from 'vuex'
+import { computed } from '@vue/reactivity'
+import { reactive } from 'vue'
+import { ARTICLE_GET_TAGS, APP_CREATE_ARTICLE } from '../store/actionTypes/Auth'
 export default {
     name: 'CreateArticlePage',
     components: {
-        TextField,
-        SelectInput,
-        TextareaInput,
         Button
     },
     setup() {
-        const tagList = ['a', 'b', 'c']
+        const store = useStore()
+        store.dispatch(`articles/${ARTICLE_GET_TAGS}`)
+        const tagsList = computed(() => store.getters['articles/getTags'])
+        const formData = reactive({
+            title: '',
+            tagList: null,
+            body: '',
+            description: ''
+        })
+        const createArticle = () => {
+            const params = {
+                article: formData
+            }
+            store.dispatch(`articles/${APP_CREATE_ARTICLE}`, params)
+        }
         return {
-            tagList
+            tagsList,
+            createArticle,
+            formData
         }
     }
 }

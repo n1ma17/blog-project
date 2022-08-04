@@ -1,8 +1,8 @@
 <template>
-    <div class="card">
+    <div class="card" @click="routeToSlug">
         <div class="card__content">
             <div class="card__content__author">
-                <img :src="data.author.image" :alt="data.author.username" />
+                <img :src="data?.author?.image" :alt="data.author.username" />
                 <span class="mt-2"><b>Author:</b> {{ data.author.username }}</span>
             </div>
             <div class="card__content__info">
@@ -24,18 +24,27 @@
 </template>
 
 <script>
+import router from '../../router'
+
 export default {
-    name: 'Card',
+    name: 'ArticleCard',
     props: {
         data: {
             type: Object,
             default: () => ({})
         }
     },
-    setup() {
-
+    setup(props) {
+        const routeToSlug = () => {
+            router.push({
+                path: 'single-article',
+                query:{
+                    slug: props.data.slug
+                }
+            })
+        }
         return {
-
+            routeToSlug
         }
     }
 }
@@ -44,7 +53,7 @@ export default {
 <style lang="scss" scoped>
 .card {
     width: 100%;
-    height: 200px;
+    min-height: 200px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 12px #e8e8e8;
@@ -52,6 +61,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
 
     &__content {
         height: 70%;
@@ -126,6 +136,63 @@ export default {
                 font-size: 12px;
                 font-weight: 600;
                 margin-right: 5px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        &__content {
+            &__author {
+                img {
+                    min-height: 80px;
+                    height: 80px;
+                }
+
+                span {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        @media only screen and (max-width: 425px) {
+            &__content {
+                flex-direction: column;
+
+                &__info {
+
+
+                    &__title {
+                        font-size: 18px;
+                    }
+
+                    &__desc {
+                        font-size: 12px;
+                    }
+                }
+
+                &__author {
+                    width: 100%;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    span {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            &__footer {
+
+                &__tag {
+
+                    span {
+
+                        margin-right: 0;
+                    }
+                }
             }
         }
     }

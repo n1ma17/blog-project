@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Articles from "/src/pages/Articles.vue";
 import CreateArticle from "/src/pages/CreateArticle.vue";
 import Auth from "/src/pages/Auth.vue";
+import SingleArticle from "/src/pages/SingleArticle.vue"
 import { AuthService } from "../services/Auth.service";
-import { APP_LOGOUT_ACTION } from "../store/actionTypes/Auth";
-import store from "./../store/index";
+
 
 const routes = [
   {
@@ -13,6 +13,15 @@ const routes = [
     component: Articles,
     meta: {
       requireAuth: false,
+    },
+  
+  },
+  {
+    path: "/single-article",
+    name: "SingleArticle",
+    component: SingleArticle,
+    meta: {
+      requireAuth: true,
     },
   },
   {
@@ -23,6 +32,7 @@ const routes = [
       requireAuth: true,
     },
   },
+
   {
     path: "/auth",
     name: "Auth",
