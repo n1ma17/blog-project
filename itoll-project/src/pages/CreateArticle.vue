@@ -7,13 +7,13 @@
                     <TextField lable="Title" type="text" class="mb-4" />
                 </div>
                 <div class="create-article__content__form__input">
-                    <TextField lable="Tag" type="select" class="mb-4" />
+                    <SelectInput :options="tagList" label="Tag" type="select" class="mb-4" />
                 </div>
                 <div class="create-article__content__form__input">
-                    <TextField lable="Description" type="text" class="mb-4" />
+                    <TextareaInput :cols='1' :rows="4" label="Description" class="mb-4" />
                 </div>
                 <div class="create-article__content__form__input">
-                    <TextField lable="Body" type="text" class="mb-4" />
+                    <TextareaInput :cols='1' :rows="4" label="Body" type="text" class="mb-4" />
                 </div>
 
             </div>
@@ -26,17 +26,21 @@
 
 <script>
 import TextField from '/src/components/shared/TextField/index.vue'
+import SelectInput from '/src/components/shared/SelectInput/index.vue'
+import TextareaInput from '/src/components/shared/TextareaInput/index.vue'
 import Button from '/src/components/shared/Button/index.vue'
 export default {
     name: 'CreateArticlePage',
     components: {
         TextField,
+        SelectInput,
+        TextareaInput,
         Button
     },
     setup() {
-
+        const tagList = ['a', 'b', 'c']
         return {
-
+            tagList
         }
     }
 }
@@ -45,7 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 .create-article {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -53,7 +56,7 @@ export default {
     border-radius: 10px;
     background-color: #fff;
     padding: 20px;
-    height: 500px;
+    min-height: 500px;
     box-shadow: 0 0 11px 1px #e1e1e1;
 
     &__content {

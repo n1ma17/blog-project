@@ -1,22 +1,24 @@
 <template>
-    <div class="login">
+    <form class="login" @submit.prevent="handleLogin">
         <div class="login__content">
             <span class="login__content__title">Log In</span>
             <div class="login__content__form">
-                <TextField v-model="model.name" @update:modelValue="model.name = $event" lable="Email" type="text" class="mb-4" />
-                <TextField v-model="model.name" @update:modelValue="model.name = $event" lable="Password" type="text" />
+                <TextField v-model="item.email" name="email" lable="Email" type="email" class="mb-4" />
+                <TextField v-model="item.password" name="password" lable="Password" type="password" />
             </div>
         </div>
         <div class="login__btn">
-            <Button icon="fa-solid fa-check-double" text="log in" />
+            <Button type="submit" icon="fa-solid fa-check-double" text="log in" />
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
 import { reactive } from 'vue'
 import TextField from '/src/components/shared/TextField/index.vue'
 import Button from '/src/components/shared/Button/index.vue'
+import { APP_LOGIN_ACTION } from "./../../store/actionTypes/Auth"
+import { useStore } from 'vuex'
 export default {
     name: 'LogIn',
     components: {
@@ -24,11 +26,20 @@ export default {
         Button
     },
     setup() {
-        const model = reactive({
-            name: ''
+        const store = useStore()
+        const item = reactive({
+            email: '',
+            password: ''
         })
+        const handleLogin = () => {
+            const params = {
+                user: item
+            }
+            store.dispatch(`auth/${APP_LOGIN_ACTION}`, params)
+        }
         return {
-            model
+            item,
+            handleLogin
         }
     }
 }

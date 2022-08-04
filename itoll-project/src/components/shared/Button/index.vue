@@ -1,8 +1,11 @@
 <template>
-    <div class=" custom-button">
-        <fa class="icon" :icon="icon" />
-        <a>{{text}}</a>
-    </div>
+    <button :type="type">
+        <div class=" custom-button">
+            <fa class="icon" :icon="icon" />
+           <span> {{ text }}</span>
+        </div>
+    </button>
+
 </template>
 
 <script>
@@ -17,6 +20,10 @@ export default {
             default: '',
             type: String
         },
+        type: {
+            type: String,
+            default: "button"
+        }
     },
     setup() {
         return {
@@ -48,7 +55,7 @@ export default {
         opacity: 0;
     }
 
-    a {
+    span {
         text-align: center;
         width: 100%;
         font-size: 12px;
@@ -80,7 +87,7 @@ export default {
         align-items: center;
         justify-content: center;
 
-        a {
+        span {
             opacity: 0;
             transform: translate(-50%, 0);
         }

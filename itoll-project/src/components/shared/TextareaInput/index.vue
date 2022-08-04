@@ -1,42 +1,25 @@
 <template>
-    <div class="text-field">
-        <input v-model="model" :id="name" class="text-field__input" :type="type" />
-        <label :for="name">{{ lable }}</label>
+    <div class="textarea">
+        <textarea class="textarea__input" id="textarea" name="textarea" :rows="rows" :cols="cols"></textarea>
+        <label class="textarea__label" for="textarea">{{ label }}</label>
     </div>
 </template>
 
 <script>
-import { computed } from 'vue'
 export default {
-
-    name: 'TextField',
+    name: 'TextareaInput',
     props: {
-        modelValue: {
-            type: [String, Number],
+        rows: {
+            type: Number,
+            default: 1
         },
-        type: {
-            type: String,
-            default: 'text'
+        cols: {
+            type: Number,
+            default: 1
         },
-        lable: {
+        label: {
             type: String,
-            default: 'text'
-        },
-        name: {
-            type: String,
-            default: 'name'
-        }
-    },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const model = computed(
-            {
-                get: () => props.modelValue,
-                set: (value) => emit('update:modelValue', value)
-            }
-        )
-        return {
-            model
+            default: ''
         }
     }
 }
@@ -44,12 +27,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.text-field {
+.textarea {
     position: relative;
     margin-top: 10px;
 
-
-    input {
+    &__input {
         width: 100%;
         padding: 10px 20px;
         border: 1px solid #d2d2d2;
@@ -63,7 +45,7 @@ export default {
         }
     }
 
-    label {
+    &__label {
         position: absolute;
         left: 15px;
         top: 50%;
@@ -74,7 +56,7 @@ export default {
         padding: 0 10px;
     }
 
-    input:focus+label {
+    .textarea__input:focus+.textarea__label {
         top: 0;
         transform: translateY(-50%);
         color: #29335c;

@@ -1,0 +1,2 @@
+export const USER_TOKEN_NAME = 'USER_TOKEN'
+export const AUTH_TOKEN_NAME = 'AUTH_TOKEN'

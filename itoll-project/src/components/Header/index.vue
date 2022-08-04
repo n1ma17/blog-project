@@ -5,8 +5,8 @@
                 <fa class="header__user__avatar__icon" icon="fa-solid fa-user" />
             </div>
             <div class="header__user__info ml-3">
-                <span class="header__user__info__name">{{ data.name }}</span>
-                <span class="header__user__info__desc">{{ data.email }}</span>
+                <span class="header__user__info__name">{{ profile.name }}</span>
+                <span class="header__user__info__desc">{{ profile.email }}</span>
             </div>
         </div>
         <div class="header__menu">
@@ -18,31 +18,42 @@
             </router-link>
         </div>
         <div class="header__actions">
-            <router-link to="/Auth">
+            <router-link v-if="!isAuth" to="/Auth">
                 <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in / Register" />
             </router-link>
-            <Button class="mr-3" icon="fa-solid fa-right-from-bracket" text="Log out" />
+            <router-link :to="{ name: 'Auth' }">
+                <Button class="mr-3" icon="fa-solid fa-right-from-bracket" text="Log out" />
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
+import { computed } from '@vue/reactivity'
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 import Button from '../shared/Button/index.vue'
-export default {
+export default defineComponent({
     components: {
         Button
     },
     setup() {
-
-        return {
-            data: {
-                name: 'name',
-                email: 'test@test.com'
+        const store = useStore()
+        const isAuth = computed(() => store.getters["auth/isAuth"])
+        const profile = computed(() => {
+            const profile = store.getters["auth/profile"]
+            return {
+                name: profile?.user?.name || "",
+                email: profile?.user?.email || ""
             }
+        })
+        return {
+            profile,
+            isAuth
 
         }
     }
-}
+})
 </script>
 
 <style lang="scss" scoped>

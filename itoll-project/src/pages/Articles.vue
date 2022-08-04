@@ -25,12 +25,6 @@ export default {
     const store = useStore()
     const articles = computed(() => store.getters.getArticles)
 
-    // const getData = () => {
-    //   $http.$get('/articles').then((res) => console.log({ res }))
-    // }
-    // onMounted(() => {
-    //   getData()
-    // })
     return {
       articles
     }

@@ -5,9 +5,7 @@
     </div>
     <v-main>
       <v-container>
-        <transition name="fade">
-          <router-view />
-        </transition>
+        <router-view />
       </v-container>
     </v-main>
   </v-app>
@@ -27,7 +25,8 @@ export default {
 .app {
   background-color: #FDF8EA;
   position: relative;
-  &__header{
+
+  &__header {
     position: sticky;
     top: 0;
     left: 0;

@@ -1,9 +1,11 @@
-import { createStore } from 'vuex'
-import articles from '../store/modules/articles'
+import { createStore } from "vuex";
+import articles from "../store/modules/articles";
+import auth from "../store/modules/auth";
 const store = createStore({
-    modules: {
-        articles
-    },
-})
+  modules: {
+    auth,
+    articles,
+  },
+});
 
-export default store
+export default store;
