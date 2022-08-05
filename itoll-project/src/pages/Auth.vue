@@ -1,17 +1,23 @@
 <template>
     <div class="auth">
         <div class="auth__login" v-if="haveAccount">
-            <login-form @haveAccount="haveAccount = $event"></login-form>
+            <v-progress-circular v-if="loginLoading" class="ml-6" :size="40" :width="4" color="success" indeterminate>
+            </v-progress-circular>
+            <login-form v-else @haveAccount="haveAccount = $event"></login-form>
         </div>
         <div class="auth__register" v-else>
-            <register-form @haveAccount="haveAccount = $event"></register-form>
+            <v-progress-circular v-if="registerLoading" class="ml-6" :size="40" :width="4" color="success"
+                indeterminate>
+            </v-progress-circular>
+            <register-form v-else @haveAccount="haveAccount = $event"></register-form>
         </div>
     </div>
 
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import LoginForm from '/src/components/Auth/LoginForm.vue'
 import RegisterForm from '/src/components/Auth/RegisterForm.vue'
 export default {
@@ -21,13 +27,18 @@ export default {
         RegisterForm
     },
     setup() {
+        const store = useStore()
         let haveAccount = ref(true)
         const accountHandler = () => {
             haveAccount.value === !haveAccount.value
         }
+        const loginLoading = computed(() => store.getters['auth/loginLoading'])
+        const registerLoading = computed(() => store.getters['auth/registerLoading'])
         return {
             haveAccount,
-            accountHandler
+            accountHandler,
+            registerLoading,
+            loginLoading
         }
     }
 }
@@ -48,10 +59,19 @@ export default {
         border-radius: 10px;
         background-color: #fff;
         padding: 20px;
-        height: 500px;
         box-shadow: 0 0 11px 1px #e1e1e1;
 
+        @media only screen and (max-width: 768px) {
+            width: 90%;
+        }
+    }
 
+    &__login {
+        height: 500px;
+    }
+
+    &__register {
+        min-height: 500px;
     }
 }
 </style>

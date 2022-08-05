@@ -3,6 +3,7 @@ import Articles from "/src/pages/Articles.vue";
 import CreateArticle from "/src/pages/CreateArticle.vue";
 import Auth from "/src/pages/Auth.vue";
 import SingleArticle from "/src/pages/SingleArticle.vue"
+import Profile from '/src/pages/Profile.vue'
 import { AuthService } from "../services/Auth.service";
 
 
@@ -20,6 +21,14 @@ const routes = [
     path: "/single-article",
     name: "SingleArticle",
     component: SingleArticle,
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
     meta: {
       requireAuth: true,
     },

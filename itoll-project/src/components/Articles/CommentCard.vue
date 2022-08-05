@@ -86,12 +86,46 @@ export default {
         align-items: flex-end;
         flex-direction: column;
         justify-content: space-between;
-        span{
+
+        span {
             font-size: 10px;
             color: #29335c;
             font-weight: 700;
         }
     }
 
+    @media only screen and (max-width: 425px) {
+    border-radius: 0 30px 30px 30px;
+        &__header {
+            align-items: center;
+            flex-direction: column;
+
+            &__author {
+                width: 100%;
+                align-items: center;
+
+                span {
+                    font-size: 14px;
+                    text-align: center;
+                }
+            }
+
+            &__content {
+                width: 100%;
+                margin-top: 20px;
+                span {
+                    font-size: 12px;
+                    text-align: center;
+                }
+            }
+        }
+
+        &__footer {
+
+            span {
+                font-size: 8px;
+            }
+        }
+    }
 }
 </style>

@@ -19,7 +19,11 @@ import {
 } from "./../actionTypes/Auth";
 export default {
   namespaced: true,
-  state: () => ({ loading: false, isAuth: AuthService.isAuth() }),
+  state: () => ({
+    registerLoading: false,
+    loginLoading: false,
+    isAuth: AuthService.isAuth(),
+  }),
 
   getters: {
     profile() {
@@ -28,18 +32,20 @@ export default {
     isAuth(state) {
       return AuthService.isAuth();
     },
+    registerLoading: (state) => state.registerLoading,
+    loginLoading: (state) => state.loginLoading,
   },
 
   mutations: {
     APP_LOGIN_REQUEST: (state) => {
-      state.loading = true;
+      state.loginLoading = true;
     },
     APP_LOGIN_SUCCESS: (state, payload) => {
-      state.loading = false;
+      state.loginLoading = false;
       state.isAuth = true;
     },
     APP_LOGIN_FAILED: (state) => {
-      state.loading = false;
+      state.loginLoading = false;
     },
     APP_LOGOUT_REQUEST: (state) => {
       state.loading = true;
@@ -52,13 +58,13 @@ export default {
       state.loading = false;
     },
     APP_REGISTER_REQUEST: (state) => {
-      state.loading = true;
+      state.registerLoading = true;
     },
     APP_REGISTER_SUCCESS: (state, payload) => {
-      state.loading = false;
+      state.registerLoading = false;
     },
     APP_REGISTER_FAILED: (state, payload) => {
-      state.loading = false;
+      state.registerLoading = false;
     },
   },
 
@@ -72,7 +78,7 @@ export default {
           commit(APP_LOGIN_SUCCESS, res.data);
           userService.setCurrentUser(res.data);
           router.push({ name: "Articles" });
-        } else commit(APP_LOGIN_FAILED, res.data);
+        } else commit(APP_LOGIN_FAILED, res.data.data.errors);
       } catch (error) {
         commit(APP_LOGIN_FAILED, error);
       }

@@ -32,6 +32,7 @@ export default {
     left: 0;
     margin-bottom: 50px;
     background-color: #5f7470;
+    z-index: 2;
   }
 }
 </style>

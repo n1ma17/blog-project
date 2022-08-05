@@ -1,12 +1,12 @@
 <template>
     <div class="header">
-        <div class="header__user">
+        <div class="header__user" @click="routeToProfile">
             <div class="header__user__avatar">
                 <fa class="header__user__avatar__icon" icon="fa-solid fa-user" />
             </div>
             <div class="header__user__info ml-3">
-                <span class="header__user__info__name">{{ profile.name }}</span>
-                <span class="header__user__info__desc">{{ profile.email }}</span>
+                <span class="header__user__info__name">{{ user.username }}</span>
+                <span class="header__user__info__desc">{{ user.email }}</span>
             </div>
         </div>
         <div class="header__menu">
@@ -15,6 +15,9 @@
             </router-link>
             <router-link to="/create-article">
                 Create Article
+            </router-link>
+            <router-link to="/profile">
+                Profile
             </router-link>
         </div>
         <div class="header__actions">
@@ -32,6 +35,7 @@
 import { computed } from '@vue/reactivity'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import router from '../../router'
 import Button from '../shared/Button/index.vue'
 export default defineComponent({
     components: {
@@ -40,17 +44,25 @@ export default defineComponent({
     setup() {
         const store = useStore()
         const isAuth = computed(() => store.getters["auth/isAuth"])
-        const profile = computed(() => {
+        const user = computed(() => {
             const profile = store.getters["auth/profile"]
             return {
-                name: profile?.user?.name || "",
+                username: profile?.user?.username || "",
                 email: profile?.user?.email || ""
             }
         })
+        const routeToProfile = () => {
+            router.push({
+                path: 'profile',
+                query: {
+                    username: user.value.username
+                }
+            })
+        }
         return {
-            profile,
-            isAuth
-
+            user,
+            isAuth,
+            routeToProfile
         }
     }
 })
@@ -71,6 +83,10 @@ a {
     box-shadow: 0px 0px 8px #5f7470;
     padding: 0 20px;
 
+    @media only screen and (max-width: 425px) {
+        padding: 0 5px;
+    }
+
     &__menu {
         width: 50%;
         height: 80%;
@@ -88,6 +104,10 @@ a {
             padding: 5px 0;
             margin: 0 20px;
 
+            @media only screen and (max-width: 425px) {
+                font-size: 12px;
+                margin: 0 10px;
+            }
 
             &:before {
                 content: '';
@@ -116,6 +136,7 @@ a {
         align-items: center;
         justify-content: flex-start;
         width: 25%;
+        cursor: pointer;
 
         &__avatar {
             width: 40px;
@@ -147,6 +168,10 @@ a {
                 font-weight: 400;
             }
         }
+
+        @media only screen and (max-width: 768px) {
+            display: none;
+        }
     }
 
     &__actions {
@@ -157,6 +182,19 @@ a {
 
         a {
             color: #FDF8EA;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        &__menu {
+            width: 70%;
+            display: flex;
+            justify-content: flex-start;
+
+            a {
+                font-size: 12px;
+            }
+
         }
     }
 

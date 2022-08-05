@@ -3,12 +3,14 @@
         <div class="register__content">
             <span class="register__content__title">Register</span>
             <div class="register__content__form">
-                <TextField v-model="registerItem.username" name="user" lable="Username" type="text" class="mb-4" />
-                <TextField v-model="registerItem.email" name="email" lable="Email" type="email" class="mb-4" />
-                <TextField v-model="registerItem.password" name="password" lable="Password" type="password"
-                    class="mb-4" />
-                <TextField v-model="registerItem.repassword" name="repassword" lable="Confirm Password"
-                    type="password" />
+                <v-text-field required v-model="registerItem.username" label="Username"></v-text-field>
+                <v-text-field :rules="emailRules" required v-model="registerItem.email" label="Email"></v-text-field>
+                <v-text-field :rules="passwordRules" required v-model="registerItem.password" label="Password"
+                    type="password">
+                </v-text-field>
+                <v-text-field :rules="passwordRules" required v-model="registerItem.repassword" label="Confirm Password"
+                    type="password">
+                </v-text-field>
             </div>
         </div>
         <div class="register__btn">
@@ -18,6 +20,9 @@
             </div>
             <Button type="submit" icon="fa-solid fa-check-double" text="register" />
         </div>
+        <v-alert v-if="errorAlert.showError" type="error">
+            {{ errorAlert.text }}
+        </v-alert>
     </form>
 </template>
 
@@ -42,6 +47,10 @@ export default {
             password: '',
             repassword: ''
         })
+        let errorAlert = reactive({
+            showError: false,
+            text: 'an error has accord'
+        })
         const handleRegister = () => {
             const params = {
                 user: {
@@ -50,17 +59,40 @@ export default {
                     password: registerItem.password
                 }
             }
+
+
+
             if (registerItem.password === registerItem.repassword) {
                 store.dispatch(`auth/${APP_REGISTER_ACTION}`, params)
-            } else alert('incorrect password')
+            } else {
+                errorAlert.showError = true
+                errorAlert.text = 'passwords dosent match'
+                setTimeout(() => {
+                    errorAlert.showError = false
+                    errorAlert.text = ''
+                }, 3000);
+
+            }
+
         }
         const accountHandler = () => {
             emit('haveAccount', true)
         }
+        const passwordRules = [
+            v => !!v || 'Input is required',
+            v => v.length > 3 || 'min:3',
+        ]
+        const emailRules = [
+            v => !!v || 'Input is required',
+            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ]
         return {
             handleRegister,
             registerItem,
-            accountHandler
+            emailRules,
+            passwordRules,
+            accountHandler,
+            errorAlert
         }
     }
 }
@@ -69,7 +101,6 @@ export default {
 
 <style lang="scss" scoped>
 .register {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -3,7 +3,8 @@
     <v-col cols="12" md="12">
       <div class="header-section">
         <span>Articles</span>
-        <v-progress-circular v-if="loading" class="ml-6" :size="40" :width="4" color="success" indeterminate></v-progress-circular>
+        <v-progress-circular v-if="loading" class="ml-6" :size="40" :width="4" color="success" indeterminate>
+        </v-progress-circular>
       </div>
     </v-col>
     <v-col cols="12" md="6" v-for="item in articles">
@@ -26,7 +27,7 @@ export default {
     const store = useStore()
     const articles = computed(() => store.getters["articles/getArticles"])
     store.dispatch(`articles/${APP_GET_ARTICLES}`)
-    const loading = store.getters["articles/getLoading"]
+    const loading = computed(() => store.getters["articles/getLoading"])
     return {
       articles,
       loading

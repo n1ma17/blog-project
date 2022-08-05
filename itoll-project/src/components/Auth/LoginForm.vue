@@ -3,8 +3,11 @@
         <div class="login__content">
             <span class="login__content__title">Log In</span>
             <div class="login__content__form">
-                <TextField v-model="item.email" name="email" lable="Email" type="email" class="mb-4" />
-                <TextField v-model="item.password" name="password" lable="Password" type="password" />
+                <v-text-field :rules="emailRules" required v-model="item.email" label="Email" class="mb-4">
+                </v-text-field>
+                <v-text-field :rules="passwordRules" required v-model="item.password" label="Password" type="password"
+                    class="mb-4">
+                </v-text-field>
             </div>
         </div>
         <div class="login__btn">
@@ -14,19 +17,20 @@
             </div>
             <Button type="submit" icon="fa-solid fa-check-double" text="Sign in" />
         </div>
+        <v-alert transition="slide-x-transition" v-if="showError" type="error">
+            request is failed
+        </v-alert>
     </form>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import TextField from '/src/components/shared/TextField/index.vue'
+import { reactive, computed } from 'vue'
 import Button from '/src/components/shared/Button/index.vue'
 import { APP_LOGIN_ACTION } from "./../../store/actionTypes/Auth"
 import { useStore } from 'vuex'
 export default {
     name: 'LogIn',
     components: {
-        TextField,
         Button
     },
     setup(_, { emit }) {
@@ -35,6 +39,7 @@ export default {
             email: '',
             password: ''
         })
+
         const handleLogin = () => {
             const params = {
                 user: item
@@ -44,10 +49,22 @@ export default {
         const accountHandler = () => {
             emit('haveAccount', false)
         }
+        const passwordRules = [
+            v => !!v || 'Input is required',
+            v => v.length > 3 || 'min:3',
+        ]
+        const emailRules = [
+            v => !!v || 'Input is required',
+            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ]
+        const showError = computed(() => store.getters['auth/LoginError'])
         return {
             item,
             handleLogin,
-            accountHandler
+            accountHandler,
+            emailRules,
+            passwordRules,
+            showError,
         }
     }
 }
