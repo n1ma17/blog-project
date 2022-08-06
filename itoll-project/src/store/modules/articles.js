@@ -19,7 +19,7 @@ import {
   SINGLE_ARTICLE_FAILED,
   SINGLE_ARTICLE_REQUEST,
   SINGLE_ARTICLE_SUCCESS,
-} from "../actionTypes/Auth";
+} from "../actionTypes/Actions";
 import api from "../../plugins/api";
 export default {
   namespaced: true,

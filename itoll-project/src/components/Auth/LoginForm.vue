@@ -26,7 +26,7 @@
 <script>
 import { reactive, computed } from 'vue'
 import Button from '/src/components/shared/Button/index.vue'
-import { APP_LOGIN_ACTION } from "./../../store/actionTypes/Auth"
+import { APP_LOGIN_ACTION } from "../../store/actionTypes/Actions"
 import { useStore } from 'vuex'
 export default {
     name: 'LogIn',

@@ -16,7 +16,7 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { APP_GET_ARTICLES } from '../store/actionTypes/Auth'
+import { APP_GET_ARTICLES } from '../store/actionTypes/Actions'
 import ArticleCard from '/src/components/shared/ArticleCard.vue'
 export default {
   name: 'ArticlesPage',

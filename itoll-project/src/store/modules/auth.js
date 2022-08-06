@@ -16,7 +16,7 @@ import {
   APP_REGISTER_FAILED,
   APP_REGISTER_REQUEST,
   APP_REGISTER_SUCCESS,
-} from "./../actionTypes/Auth";
+} from "../actionTypes/Actions";
 export default {
   namespaced: true,
   state: () => ({
@@ -29,7 +29,7 @@ export default {
     profile() {
       return userService.getCurrentUser();
     },
-    isAuth(state) {
+    isAuth() {
       return AuthService.isAuth();
     },
     registerLoading: (state) => state.registerLoading,

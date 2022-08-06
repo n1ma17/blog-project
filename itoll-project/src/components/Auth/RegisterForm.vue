@@ -31,7 +31,8 @@ import { reactive } from 'vue'
 import TextField from '/src/components/shared/TextField/index.vue'
 import Button from '/src/components/shared/Button/index.vue'
 import { useStore } from 'vuex'
-import { APP_REGISTER_ACTION } from '../../store/actionTypes/Auth'
+import { APP_REGISTER_ACTION } from '../../store/actionTypes/Actions'
+
 
 export default {
     name: 'Register',

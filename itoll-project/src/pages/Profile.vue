@@ -12,6 +12,7 @@
                 </div>
             </form>
         </div>
+        
     </div>
 </template>
 
@@ -19,7 +20,7 @@
 import Button from '/src/components/shared/Button/index.vue'
 import { computed, reactive } from 'vue'
 import { useStore } from 'vuex'
-import { EDIT_PROFILE_ACTION } from '../store/actionTypes/Auth'
+import { EDIT_PROFILE_ACTION } from '../store/actionTypes/Actions'
 export default {
     name: 'ProfilePage',
     components: {

@@ -1,11 +1,7 @@
 import { editProfileUrl } from "../../endpoints/profile";
 import api from "../../plugins/api";
-import {
-  APP_PROFILE_FAILED,
-  APP_PROFILE_REQUEST,
-  APP_PROFILE_SUCCESS,
-  EDIT_PROFILE_ACTION,
-} from "../actionTypes/Auth";
+import { APP_PROFILE_FAILED, APP_PROFILE_REQUEST, APP_PROFILE_SUCCESS, EDIT_PROFILE_ACTION } from "../actionTypes/Actions";
+
 
 export default {
   namespaced: true,

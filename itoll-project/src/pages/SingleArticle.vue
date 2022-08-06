@@ -40,7 +40,7 @@ import { computed } from '@vue/reactivity'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import CommentCard from '/src/components/Articles/CommentCard.vue'
-import { APP_SINGLE_ARTICLE, APP_ARTICLE_COMMENTS } from '../store/actionTypes/Auth'
+import { APP_SINGLE_ARTICLE, APP_ARTICLE_COMMENTS } from '../store/actionTypes/Actions'
 export default {
     name: 'SingleArticle',
     components: {
@@ -77,9 +77,11 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    width: 100%;
 
     &__main {
         display: flex;
+        width: 100%;
         align-items: flex-start;
         justify-content: space-between;
 

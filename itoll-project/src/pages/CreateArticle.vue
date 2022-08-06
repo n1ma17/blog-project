@@ -32,7 +32,7 @@ import Button from '/src/components/shared/Button/index.vue'
 import { useStore } from 'vuex'
 import { computed } from '@vue/reactivity'
 import { reactive } from 'vue'
-import { ARTICLE_GET_TAGS, APP_CREATE_ARTICLE } from '../store/actionTypes/Auth'
+import { ARTICLE_GET_TAGS, APP_CREATE_ARTICLE } from '../store/actionTypes/Actions'
 export default {
     name: 'CreateArticlePage',
     components: {
