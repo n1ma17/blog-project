@@ -22,15 +22,15 @@ export default {
   state: () => ({
     registerLoading: false,
     loginLoading: false,
-    isAuth: AuthService.isAuth(),
+    isAuth: false,
   }),
 
   getters: {
     profile() {
       return userService.getCurrentUser();
     },
-    isAuth() {
-      return AuthService.isAuth();
+    isAuth(state) {
+      return state.isAuth;
     },
     registerLoading: (state) => state.registerLoading,
     loginLoading: (state) => state.loginLoading,
@@ -62,9 +62,13 @@ export default {
     },
     APP_REGISTER_SUCCESS: (state, payload) => {
       state.registerLoading = false;
+      state.isAuth = true
     },
     APP_REGISTER_FAILED: (state, payload) => {
       state.registerLoading = false;
+    },
+    APP_USER_AUTED: (state, payload) => {
+      state.isAuth = payload;
     },
   },
 
@@ -75,33 +79,32 @@ export default {
 
         const res = await AuthService.login(payload);
         if (res && res.status === 200) {
+          await userService.setCurrentUser(res.data.user);
           commit(APP_LOGIN_SUCCESS, res.data);
-          userService.setCurrentUser(res.data.user);
           router.push({ name: "Articles" });
         } else commit(APP_LOGIN_FAILED, res.data.data.errors);
       } catch (error) {
         commit(APP_LOGIN_FAILED, error);
       }
     },
-    [APP_LOGOUT_ACTION]: ({ commit }, payload) => {
+    [APP_LOGOUT_ACTION]: async ({ commit }, payload) => {
       try {
         commit(APP_LOGOUT_REQUEST);
         AuthService.logout();
-        commit(APP_LOGOUT_SUCCESS, res.data);
-        router.push({ name: "Auth" });
+        commit(APP_LOGOUT_SUCCESS);
       } catch (error) {
         commit(APP_LOGOUT_FAILED, error);
       }
     },
 
     [APP_REGISTER_ACTION]: async ({ commit }, payload) => {
-      const rapi = api();
       try {
         commit(APP_REGISTER_REQUEST);
+        const rapi = api();
         const res = await rapi.post(registerUrl, payload);
         if (res && res.status === 200) {
+          await userService.setCurrentUser(res.data.user);
           commit(APP_REGISTER_SUCCESS, res.data);
-          userService.setCurrentUser(res.data);
           router.push({ name: "Articles" });
         } else commit(APP_REGISTER_FAILED, res.data);
       } catch (error) {

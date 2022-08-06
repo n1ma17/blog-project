@@ -1,6 +1,6 @@
 <template>
   <v-app class="app">
-    <div class="app__header ">
+    <div class="app__header">
       <Header />
     </div>
     <v-main>
@@ -12,18 +12,24 @@
 </template>
 
 <script>
-import Header from '../components/Header/index.vue'
+import { useStore } from "vuex";
+import Header from "../components/Header/index.vue";
+import { AuthService } from "../services/Auth.service";
+import { APP_USER_AUTED } from '../store/actionTypes/Actions';
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header
-  }
-
-}
+    Header,
+  },
+  setup() {
+    const store = useStore();
+    store.commit(`auth/${APP_USER_AUTED}`, AuthService.isAuth());
+  },
+};
 </script>
 <style scoped lang="scss">
 .app {
-  background-color: #FDF8EA;
+  background-color: #fdf8ea;
   position: relative;
 
   &__header {

@@ -23,6 +23,5 @@ export class AuthService {
   }
   static async logout() {
     localStorage.clear();
-    Promise.resolve()
   }
 }

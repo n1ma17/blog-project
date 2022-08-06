@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import Articles from "/src/pages/Articles.vue";
 import CreateArticle from "/src/pages/CreateArticle.vue";
 import Auth from "/src/pages/Auth.vue";
-import SingleArticle from "/src/pages/SingleArticle.vue"
-import Profile from '/src/pages/Profile.vue'
+import SingleArticle from "/src/pages/SingleArticle.vue";
+import Profile from "/src/pages/Profile.vue";
 import { AuthService } from "../services/Auth.service";
-
-
+import store from "./../store";
+import { APP_LOGOUT_ACTION } from "../store/actionTypes/Actions";
 const routes = [
   {
     path: "/",
@@ -15,7 +15,6 @@ const routes = [
     meta: {
       requireAuth: false,
     },
-  
   },
   {
     path: "/single-article",
@@ -50,9 +49,7 @@ const routes = [
       requireAuth: false,
     },
     beforeEnter: (to, from) => {
-      if (!!from.name) {
-        AuthService.logout();
-      }
+      store.dispatch(`auth/${APP_LOGOUT_ACTION}`);
     },
   },
 ];
@@ -62,9 +59,8 @@ const router = createRouter({
   routes,
 });
 router.beforeEach(async (to, from, next) => {
-  const requireAuth = to.meta?.requireAuth || false;
+  const requireAuth = to.matched.some((route) => route.meta.requireAuth);
   if (!AuthService.isAuth() && requireAuth) {
-    AuthService.logout();
     return next({ name: "Auth" });
   } else {
     return next();
