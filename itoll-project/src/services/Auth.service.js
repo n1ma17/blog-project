@@ -1,5 +1,5 @@
 import { loginUrl } from "../endpoints/auth";
-import rapi from "../plugins/api";
+import api from "../plugins/api";
 import { AUTH_TOKEN_NAME, USER_TOKEN_NAME } from "./types";
 
 export class AuthService {
@@ -10,6 +10,7 @@ export class AuthService {
   }
   static async login(user) {
     const req = new Promise((resolve, reject) => {
+      const rapi = api();
       try {
         const res = rapi.post(loginUrl, user);
         if (res) resolve(res);

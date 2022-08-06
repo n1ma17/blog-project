@@ -26,9 +26,10 @@ export default {
 
   actions: {
     [EDIT_PROFILE_ACTION]: async ({ commit }, payload) => {
+      const rapi = api();
       try {
         commit(APP_PROFILE_REQUEST);
-        const res = await api.put(editProfileUrl, payload);
+        const res = await rapi.put(editProfileUrl, payload);
         if (res && res.status === 200) {
           commit(APP_PROFILE_SUCCESS, res.data.data);
         } else commit(APP_PROFILE_FAILED, res.data);

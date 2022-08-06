@@ -100,10 +100,12 @@ export default {
   },
 
   actions: {
+   
     [APP_GET_ARTICLES]: async ({ commit }) => {
+      const rapi = api();
       try {
         commit(GET_ARTICLES_REQUEST);
-        const res = await api.get(articlesUrl);
+        const res = await rapi.get(articlesUrl);
         if (res && res.status === 200) {
           commit(GET_ARTICLES_SUCCESS, res.data.articles);
         } else {
@@ -114,9 +116,10 @@ export default {
       }
     },
     [ARTICLE_GET_TAGS]: async ({ commit }) => {
+      const rapi = api();
       try {
         commit(GET_TAGS_REQUEST);
-        const res = await api.get(tagsUrl);
+        const res = await rapi.get(tagsUrl);
         if (res && res.status === 200) {
           commit(GET_TAGS_SUCCESS, res.data.tags);
         } else {
@@ -127,9 +130,10 @@ export default {
       }
     },
     [APP_CREATE_ARTICLE]: async ({ commit }, payload) => {
+      const rapi = api();
       try {
         commit(CREATE_ARTICLE_REQUEST);
-        const res = await api.post(articlesUrl, payload);
+        const res = await rapi.post(articlesUrl, payload);
         if (res && res.status === 200) {
           commit(CREATE_ARTICLE_SUCCESS, res.data.data);
         } else {
@@ -140,9 +144,10 @@ export default {
       }
     },
     [APP_SINGLE_ARTICLE]: async ({ commit }, payload) => {
+      const rapi = api();
       try {
         commit(SINGLE_ARTICLE_REQUEST);
-        const res = await api.get(SingleArticleUrl(payload));
+        const res = await rapi.get(SingleArticleUrl(payload));
         if (res && res.status === 200) {
           commit(SINGLE_ARTICLE_SUCCESS, res.data.article);
         } else {
@@ -153,9 +158,10 @@ export default {
       }
     },
     [APP_ARTICLE_COMMENTS]: async ({ commit }, payload) => {
+      const rapi = api();
       try {
         commit(SINGLE_ARTICLE_REQUEST);
-        const res = await api.get(articleCommentsUrl(payload));
+        const res = await rapi.get(articleCommentsUrl(payload));
         if (res && res.status === 200) {
           commit(ARTICLE_COMMENTS_SUCCESS, res.data.comments);
         } else {

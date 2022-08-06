@@ -1,14 +1,9 @@
 import axios from "redaxios";
 import authHeader from "../services/AuthHeader";
-const api = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    accept: "application/json, text/plain, */*",
-    withCredentials: true,
-    "Content-Type": "application/json",
-  },
 });
-api.defaults.headers.common = authHeader()
-
-
-export default api;
+export default function api() {
+  axiosInstance.defaults.headers = authHeader();
+  return axiosInstance;
+}

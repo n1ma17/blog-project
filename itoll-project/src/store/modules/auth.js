@@ -95,9 +95,10 @@ export default {
     },
 
     [APP_REGISTER_ACTION]: async ({ commit }, payload) => {
+      const rapi = api();
       try {
         commit(APP_REGISTER_REQUEST);
-        const res = await api.post(registerUrl, payload);
+        const res = await rapi.post(registerUrl, payload);
         if (res && res.status === 200) {
           commit(APP_REGISTER_SUCCESS, res.data);
           userService.setCurrentUser(res.data);

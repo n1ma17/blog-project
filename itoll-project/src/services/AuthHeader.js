@@ -5,11 +5,10 @@ export default function authHeader() {
   const token = userService.getCorrentUserToken();
   const header = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Header": "Origin, Content-Type, Authorization",
-    "Authorization": `Berear ${token}`
+    "Access-Control-Allow-Header": "Origin, Content-Type, Authorization", 
   };
   if (user && token) {
-    header["Authorization"] = `Berear ${token}`;
+    header["Authorization"] = `Token ${token}`;
   }
   return header;
 }
