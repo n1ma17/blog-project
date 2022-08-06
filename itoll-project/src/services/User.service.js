@@ -6,9 +6,8 @@ export class userService {
       try {
         const storage = localStorage;
         storage.setItem(USER_TOKEN_NAME, JSON.stringify(data) || "");
-        console.log(data);
-        if (data?.user?.token) {
-          storage.setItem(AUTH_TOKEN_NAME, data.user.token || "");
+        if (data?.token) {
+          storage.setItem(AUTH_TOKEN_NAME, data.token || "");
           resolve(data);
         }
       } catch (error) {

@@ -13,10 +13,10 @@
             <router-link to="/">
                 Articles
             </router-link>
-            <router-link to="/create-article">
+            <router-link to="/create-article" v-if="isAuth">
                 Create Article
             </router-link>
-            <router-link to="/profile">
+            <router-link to="/profile" v-if="isAuth">
                 Profile
             </router-link>
         </div>
@@ -24,7 +24,7 @@
             <router-link v-if="!isAuth" to="/Auth">
                 <Button class="mr-3" icon="fa-solid fa-right-to-bracket" text="Log in / Register" />
             </router-link>
-            <router-link :to="{ name: 'Auth' }">
+            <router-link v-else :to="{ name: 'Auth' }">
                 <Button class="mr-3" icon="fa-solid fa-right-from-bracket" text="Log out" />
             </router-link>
         </div>
@@ -47,8 +47,8 @@ export default defineComponent({
         const user = computed(() => {
             const profile = store.getters["auth/profile"]
             return {
-                username: profile?.user?.username || "",
-                email: profile?.user?.email || ""
+                username: profile?.username || "",
+                email: profile?.email || ""
             }
         })
         const routeToProfile = () => {

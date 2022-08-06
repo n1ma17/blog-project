@@ -31,9 +31,9 @@ export default {
         const profile = computed(() => store.getters["auth/profile"])
         const formData = reactive({
             user: {
-                email: profile.value.user.email,
+                email: profile.value.email,
                 password: "",
-                username: profile.value.user.username
+                username: profile.value.username
             }
         })
 

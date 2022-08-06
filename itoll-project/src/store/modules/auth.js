@@ -76,7 +76,7 @@ export default {
         const res = await AuthService.login(payload);
         if (res && res.status === 200) {
           commit(APP_LOGIN_SUCCESS, res.data);
-          userService.setCurrentUser(res.data);
+          userService.setCurrentUser(res.data.user);
           router.push({ name: "Articles" });
         } else commit(APP_LOGIN_FAILED, res.data.data.errors);
       } catch (error) {
